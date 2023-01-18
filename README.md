@@ -18,21 +18,6 @@
 some conventions and contributions
 Here we will write conventions for our future use...
 
-## Muhammad Mudassir Raza :
-1.Please do not work on main branch.
-
-2. Create an another branch and work there.
-
-3.Try to push your commands on your branch.
-
-4.Don't merge the branch before discusion 
-
-
-
-
-
- 
-
-
-
- 
+About requirements.txt and setup.py:
+1) Create requirements.txt , create venv, activate it and install requirement.txt in it.
+2) Create setup.py file , and run pip install . (pip will use setup.py to install your module) , this will 'create Capstone_project_deg_01.egg-info' and 'build' folders.
