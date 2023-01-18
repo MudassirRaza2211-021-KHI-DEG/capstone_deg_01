@@ -1,6 +1,6 @@
 # Team name : Data Monks
 
-## Teams Members
+## Team Members
 
  
 | Name | Rollnumber | Email|
