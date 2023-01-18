@@ -14,7 +14,11 @@
 
 | Name | Rollnumber | Email|
 | :------- | :------------: | ----------: |  
+
 |  Aniqa Masood |  2211-003-KHI-DEG      |   aniqa.masood@xloopdigital.com       |
+
+|  Muhammad Osama |  2211-022-KHI-DEG      |   mohammad.osama@xloopdigital.com      |
+
 
 
 
