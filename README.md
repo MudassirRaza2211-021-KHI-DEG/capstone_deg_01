@@ -18,6 +18,13 @@
 some conventions and contributions
 Here we will write conventions for our future use...
 
+## Muhammad Mudassir Raza :
+1.Please do not work on main branch.
+2. Create an another branch and work there.
+3.Try to push your commands on your branch.
+4.Don't merge the branch before discusion 
+
+
 
 
 
