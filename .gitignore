@@ -15,4 +15,4 @@
 text.txt
 venv/
 build/
-Capstone_project_deg_01.egg-info/
+*.egg-info/
