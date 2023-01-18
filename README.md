@@ -10,7 +10,15 @@
 |  Aniqa Masood |  2211-003-KHI-DEG      |   aniqa.masood@xloopdigital.com       |
 |  Muhammad Osama |  2211-022-KHI-DEG      |   mohammad.osama@xloopdigital.com      |\
 | Anoosha Malik  | 2211-004-KHI-DEG        | anoosha.malik@xloopdigital.com
+|  Syed Saif Ali |  2211-029-KHI-DEG      |   syed.saif@xloopdigital.com       |
 | Shahzaib Khan | 2211-026-KHI-DEG | shahzaib.khan@xloopdigital.com
+
+
+## Contributions Conventions:
+
+Here we will write conventions for our future use.
+
+
 
 
 
