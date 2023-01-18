@@ -1,15 +1,18 @@
 repos:
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.991
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.2
     hooks:
-    -   id: mypy
-        additional_dependencies: [types-all]
--   repo: https://github.com/psf/black
+      - id: isort
+        name: isort (python)
+        exclude: ^broken_test.py # Broken on purpose.
+  - repo: https://github.com/psf/black
     rev: 22.3.0
     hooks:
-    -   id: black
--   repo: https://github.com/asottile/seed-isort-config
-    rev: v2.2.0
+    - id: black
+      exclude: ^broken_test.py # Broken on purpose.
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.3.5
     hooks:
-    -   id: seed-isort-config
-        name: seed-isort
+    - id: pycln
+      args: ["-a"]
+      exclude: ^broken_test.py # Broken on purpose.
