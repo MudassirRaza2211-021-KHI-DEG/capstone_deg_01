@@ -16,3 +16,5 @@
 # .env
 # .coverage
 text.txt
+build/
+Capstone_project_deg_01.egg-info/
