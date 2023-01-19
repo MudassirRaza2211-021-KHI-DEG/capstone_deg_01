@@ -15,7 +15,6 @@
 
 
 ## Contributions Conventions:
-some conventions and contributions
 Here we will write conventions for our future use...
 
 About requirements.txt and setup.py:
