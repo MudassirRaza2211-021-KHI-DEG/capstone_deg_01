@@ -10,7 +10,7 @@
 # *.pyc
 
 # # Files
-# .env
+.env
 # .coverage
 text.txt
 
