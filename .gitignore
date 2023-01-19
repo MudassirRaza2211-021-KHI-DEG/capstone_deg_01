@@ -1,23 +1,14 @@
 # Directories
-# .vscode/
-# .idea/
-# .mypy_cache/
-# .ipynb_checkpoints/
-
-# __pycache__/
-
-# # File formats
-# *.pyc
-
-# # Files
-.env
-# .coverage
-text.txt
-
 venv/
+env/
 build/
 *.egg-info/
+__pycache__/
 
-build/
-Capstone_project_deg_01.egg-info/
+# File formats
+*.pyc
+
+# Files
+.env
+text.txt
 
