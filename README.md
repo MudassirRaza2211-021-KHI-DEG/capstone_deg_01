@@ -22,7 +22,8 @@ About requirements.txt and setup.py:
 2) Create `setup.py` file , and run pip install . (pip will use setup.py to install your module) , this will 'create Capstone_project_deg_01.egg-info' and 'build' folders.
 
 About Pre-commit
-To get started with pre-commit we need to install the pre-commit package.
-The configuration for pre-commit hooks are defined in a .pre-commit-config.yaml file.
+1) To get started with pre-commit we need to install the pre-commit package.
+2) The configuration for pre-commit hooks are defined in a .pre-commit-config.yaml file.
+
 Pre-commit is a multi-language package manager for pre-commit hooks. You specify a list of checks (hooks) in a configuration file which will be automatically executed when the git commit command is called. If any of these checks fail, the commit will be aborted allowing you to fix the errors before the code is committed to the repository’s history.
 The pre-commit package manages the installation of any required dependencies for your hooks and can even auto-fix any errors (e.g. code formatting) after running the scripts.
