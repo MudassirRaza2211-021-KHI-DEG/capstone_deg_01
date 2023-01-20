@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        exclude: ^broken_test.py # Broken on purpose.
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    - id: black
+      exclude: ^broken_test.py # Broken on purpose.
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.3.5
+    hooks:
+    - id: pycln
+      args: ["-a"]
+      exclude: ^broken_test.py # Broken on purpose.
