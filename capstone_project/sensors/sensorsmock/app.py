@@ -18,13 +18,22 @@ def get_luxmeter(room_id: str):
 
     return data
 
-@app.post("/api/moisturemate")
-def moisturemate():
-    pass
+# @app.post("/api/moisturemate")
+# def moisturemate(data):
+#     pass
  
-@app.post("/api/carbonsense")
-def carbonsense():
-    pass
+
+# @app.get("/api/moisturemate")
+# def get_misture()
+
+
+
+
+
+
+@app.get("/api/carbonsense")
+def carbonsense(data):
+    print(data)
 
 @app.post("/api/collect")
 def collect():
