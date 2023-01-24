@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  sensorsmock:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - SMART_THERMO_BUCKET=capston-bucket
+      - MOISTURE_MATE_URL=http://localhost:3000/api/moisturemate
+      - CARBON_SENSE_URL=http://localhost:3000/api/carbonsense
+      - AWS_ACCESS_KEY_ID=ASIAZGMVVMS4DRXN4GWI
+      - AWS_SECRET_ACCESS_KEY=DMz0YUAm6AABc50ZcjEJTzHDUdBLmZr3cmRK9vr9
+      - AWS_SESSION_TOKEN=IQoJb3JpZ2luX2VjEGcaCXVzLWVhc3QtMSJHMEUCICxNTwJlwoDsOlhZNK2WVoqCnMYuX22/9QkTm/dKrdZ6AiEA038VGFY61aIYyzg5WkglCth7gw80i5zlBI6g3JiXJwsq3AEI0P//////////ARAAGgw2MzIyMTA5NDExMTIiDPBVa1LYqFA+Jyc4KiqwAZlQfafdcbjCwqT2o1dc3YSDUI2hqHxO/SHuJD+hMtejAzYA9WGEyWPIhAp+G+OfkMuDY9YpLQzTm0292ivBhhkopEldcWuQJ1nrmKRqhL3xZ7Gl4CA0cyUCXBdN3uJmyevFeifcT2/YOeL/Xp2khsu7oASSzXkjzCii128eJXqR1nmYeLTHARwiaUUMtdsYv9YhFDy1o9GuDqI6TBdJv5Cgjs9LBOW+CSw4yzgGXRAZMJrauJ4GOpgBETe6XfO2Tycp9ktKwhJ0Tx6VCjLf4cYD8PWFoe+UV+WU5HQl5Ys5zxkmsMdCy9cCgECrHX5O2ZmpEXDpEiA5YpJyl9T8axXxmtlVjT3RICschVoydLa197k6BZIyyomPiXPu+OSe0r4YLAfms7MRgtR7ORFoiZ2RGUUVF/wmvTeFdRZPijZ4OZLTI1hdhO7H8keTEzuE21U=
