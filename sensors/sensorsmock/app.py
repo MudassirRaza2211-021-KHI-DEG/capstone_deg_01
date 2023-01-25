@@ -1,7 +1,7 @@
 import logging
 
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 from service import SensorService
 
 app = FastAPI()
@@ -18,18 +18,21 @@ def get_luxmeter(room_id: str):
 
     return data
 
-@app.get("/api/moisturemate/{room_id}")
-def get_moisture_mate(room_id:str):
-     if not sensor_service.is_allowed_room(room_id):
-        return {"error": f"Room {room_id} not exists!"}
-    
-     data = sensor_service.send_carbon_sense(room_id)
 
-     return data
+@app.get("/api/moisturemate/{room_id}")
+def get_moisture_mate(room_id: str):
+    if not sensor_service.is_allowed_room(room_id):
+        return {"error": f"Room {room_id} not exists!"}
+
+    data = sensor_service.send_carbon_sense(room_id)
+
+    return data
+
 
 @app.post("/api/collect")
 def collect():
     return {"msg": "ok"}
+
 
 @app.on_event("startup")
 async def startup():
