@@ -17,7 +17,7 @@
 ## Contributions Conventions:
 Here we will write conventions for our future use...
 
-High level architecture diagram can be seen [here](https://drive.google.com/file/d/1-ybYa2Y_FydHw2wFDw0f9lePhhrNti4P/view)
+High level architecture diagram can be seen [here](https://drive.google.com/file/d/1-ybYa2Y_FydHw2wFDw0f9lePhhrNti4P/view).
 
 About requirements.txt and setup.py:
 1) Create `requirements.txt` , create venv, activate it and install requirement.txt in it.
