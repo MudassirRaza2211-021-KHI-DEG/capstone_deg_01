@@ -16,3 +16,7 @@ repos:
     - id: pycln
       args: ["-a"]
       exclude: ^broken_test.py # Broken on purpose.
+  -   repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: '2.0.1' 
+    hooks:
+    -   id: autopep8
