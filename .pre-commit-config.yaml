@@ -13,11 +13,11 @@ repos:
     hooks:
     - id: pycln
       args: ["-a"]
-  -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: '2.0.1' 
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
     hooks:
     -   id: autopep8
-  -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: '0.991'  
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.991
     hooks:
     -   id: mypy

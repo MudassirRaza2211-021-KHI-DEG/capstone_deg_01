@@ -8,6 +8,7 @@ app = FastAPI()
 
 sensor_service = SensorService()
 
+
 @app.get("/api/luxmeter/{room_id}")
 def get_luxmeter(room_id: str):
     if not sensor_service.is_allowed_room(room_id):
@@ -15,7 +16,8 @@ def get_luxmeter(room_id: str):
 
     data = sensor_service.get_lux_meter_data(room_id)
 
-    return data 
+    return data
+
 
 @app.get("/api/moisturemate/{room_id}")
 def get_moisture_mate(room_id: str):
@@ -25,6 +27,7 @@ def get_moisture_mate(room_id: str):
     data = sensor_service.send_carbon_sense(room_id)
 
     return data
+
 
 @app.post("/api/collect")
 def collect():
