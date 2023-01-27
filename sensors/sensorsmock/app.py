@@ -1,7 +1,7 @@
 import logging
 
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 from sensorsmock.service import SensorService
 
 app = FastAPI()

@@ -74,7 +74,8 @@ class SensorService:
 
             await self._send_request(self._moisture_mate_url, data)
 
-            logger.info(f"MoistureMate: {data} sent to {self._moisture_mate_url}")
+            logger.info(
+                f"MoistureMate: {data} sent to {self._moisture_mate_url}")
 
     async def send_carbon_sense(self, date: str, sample: Dict[str, Measurement]):
         for room, measurement in sample.items():
@@ -82,7 +83,8 @@ class SensorService:
 
             await self._send_request(self._carbon_sense_url, data)
 
-            logger.info(f"CarbonSense: {data} sent to {self._carbon_sense_url}")
+            logger.info(
+                f"CarbonSense: {data} sent to {self._carbon_sense_url}")
 
     def is_allowed_room(self, room_id: str):
         return room_id in self.rooms
@@ -119,7 +121,8 @@ class SensorService:
 
             self.change_room_cooldown = random.randint(5, 30)
 
-        new_sample = {room: random.choice(self.negative_samples) for room in self.rooms}
+        new_sample = {room: random.choice(
+            self.negative_samples) for room in self.rooms}
         new_sample[self.occupied_room] = random.choice(self.positive_samples)
         self.data[date] = new_sample
         logger.info(
