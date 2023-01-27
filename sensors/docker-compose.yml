@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  sensorsmock:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - SMART_THERMO_BUCKET=your-bucket
+      - MOISTURE_MATE_URL=your-url
+      - CARBON_SENSE_URL=your-url
+      - AWS_ACCESS_KEY_ID=your-access-key
+      - AWS_SECRET_ACCESS_KEY=your-secret-key
+      - AWS_SESSION_TOKEN=your-token
