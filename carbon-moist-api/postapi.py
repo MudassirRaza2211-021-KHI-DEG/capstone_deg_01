@@ -6,14 +6,14 @@ from fastapi import FastAPI, Request
 app = FastAPI()
 
 
-@app.post("/api/collect/moisturemate_data")
+@app.post("/api/fetch/moisturemate_data")
 async def collect_moisture_mate_data(request: Request):
     received_data = await request.json()
     print(f"Received MoistureMate Data: {received_data}")
     return {"msg": "received moisture_mate data"}
 
 
-@app.post("/api/collect/carbonsense_data")
+@app.post("/api/fetch/carbonsense_data")
 async def collect_carbonsense_data(request: Request):
     received_data = await request.json()
     print(f"Received carbonsense Data: {received_data}")
