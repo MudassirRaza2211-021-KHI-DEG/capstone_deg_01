@@ -1,5 +1,5 @@
 # Team name : Data Monks
-
+![Teams-Logo](team-non-technical-files/logo.png)
 ## Team Members
 
  
