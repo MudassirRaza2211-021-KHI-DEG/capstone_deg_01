@@ -8,13 +8,13 @@ app = FastAPI()
 logger = logging.getLogger()
 @app.post("/api/fetch/moisturemate_data")
 async def collect_moisture_mate_data(request: Request):
-    received_data = await request.json()
-    logger.info(f"MoistureMate: {received_data}")
+    moisture_mate_received_data = await request.json()
+    logger.info(f"MoistureMate: {moisture_mate_received_data}")
     return {"msg": "received moisture_mate data"}
 @app.post("/api/fetch/carbonsense_data")
 async def collect_carbonsense_data(request: Request):
-    received_data = await request.json()
-    logger.info(f"MoistureMate: {received_data}")
+    carbonsense_received_data = await request.json()
+    logger.info(f"MoistureMate: {carbonsense_received_data}")
     return {"msg": "received carbonsense data"}
 
 def run_app():
