@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-COPY postapi.py postapi.py
+COPY carbon_moist_data_extract_app.py carbon_moist_data_extract_app.py
 
 ENV PYTHONPATH /app
-CMD [ "python3", "postapi.py"]
+CMD [ "python3", "carbon_moist_data_extract_app.py"]
