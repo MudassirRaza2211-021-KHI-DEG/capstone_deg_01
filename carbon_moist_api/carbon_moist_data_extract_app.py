@@ -18,7 +18,7 @@ async def collect_moisture_mate_data(request: Request):
 @app.post("/api/fetch/carbonsense_data")
 async def collect_carbonsense_data(request: Request):
     carbonsense_received_data = await request.json()
-    logger.info(f"MoistureMate: {carbonsense_received_data}")
+    logger.info(f"Received CarbonSense data: {carbonsense_received_data}")
     return {"msg": "received carbonsense data"}
 
 
