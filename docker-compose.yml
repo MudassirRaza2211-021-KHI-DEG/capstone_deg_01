@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  sensorsmock:
+    build: ./sensors
+    container_name: sensor
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ca-postapi
+    environment:
+      - SMART_THERMO_BUCKET=your-bucket-name
+      - CARBON_SENSE_URL=http://ca-postapi:3001/api/fetch/carbonsense_data
+      - MOISTURE_MATE_URL=http://ca-postapi:3001/api/fetch/moisturemate_data
+      - AWS_ACCESS_KEY_ID=your-access-key
+      - AWS_SECRET_ACCESS_KEY=your-secret-access-key
+      - AWS_SESSION_TOKEN=your-access-token
+  ca-postapi:
+    build: ./carbon-moist-api
+    container_name: ca-postapi
+    ports:
+      - "3001:3001"
