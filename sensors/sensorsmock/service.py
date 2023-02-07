@@ -60,8 +60,11 @@ class SensorService:
                 for room, measurement in sample.items()
             ]
         )
+        logger.info(f"Smart_Thermo: {df}")
 
-        df.to_csv(f"s3://{self._smart_thermo_bucket}/smart_thermo/{date}.csv")
+        minioClient = minio.Minio(self.minio_endpoint, access_key=self.minio_access_key, secret_key=self.minio_secret_key ,secure=False)
+        data = df.to_csv(index=False).encode()
+        minioClient.put_object(self._smart_thermo_bucket, f"{date}.csv", io.BytesIO(data), len(data))
 
     async def send_moisture_mate(self, date: str, sample: Dict[str, Measurement]):
         for room, measurement in sample.items():
