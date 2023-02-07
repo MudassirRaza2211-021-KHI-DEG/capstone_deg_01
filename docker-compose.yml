@@ -15,9 +15,13 @@ services:
       - AWS_SECRET_ACCESS_KEY=your-secret-access-key
       - AWS_SESSION_TOKEN=your-access-token
   
-  ca-postapi:
-    build: ./carbon-moist-api
+  ca-postapi:  
+    build: ./extract/carbon_moist_extraction
     container_name: ca-postapi
+    depends_on:
+      - broker
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER= broker:29092
     ports:
       - "3001:3001"
   
