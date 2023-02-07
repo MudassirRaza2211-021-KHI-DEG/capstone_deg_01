@@ -10,7 +10,7 @@ logger = logging.getLogger()
 app = FastAPI()
 
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
-Producer = KafkaProducer(
+producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER_URL,
     value_serializer=lambda x: json.dumps(x).encode('utf8'),
     api_version=(0, 10, 1)
