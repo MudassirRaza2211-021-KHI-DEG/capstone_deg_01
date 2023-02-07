@@ -1,0 +1,10 @@
+fastapi==0.89.1
+uvicorn==0.20.0
+httpx==0.23.3
+boto3==1.26.41
+pandas==1.5.2
+s3fs==0.4.2
+minio==7.1.13
+confluent-kafka==2.0.2
+requests==2.28.2
+kafka-python==2.0.2
