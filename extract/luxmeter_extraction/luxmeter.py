@@ -8,6 +8,7 @@ from kafka import KafkaProducer
 
 logger = logging.getLogger()
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
+LUXMETER_URL = os.environ.get("LUXMETER_URL")
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER_URL,
     value_serializer=lambda x: json.dumps(x).encode('utf8'),
@@ -21,8 +22,7 @@ def luxmeter_data():
     while (True):
         time.sleep(60)
         for room_id in rooms:
-            received_data = requests.get(
-                f'http://sensor:3000/api/luxmeter/{room_id}')
+            received_data = requests.get(f'{LUXMETER_URL}{room_id}')
             received_data = received_data.json()
             last_record = f"{received_data['room_id']}: {received_data['measurements'][-1]}"
             record = Producer.send('luxmeter', value=last_record)
