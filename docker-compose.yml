@@ -47,10 +47,4 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-    command: >
-      /bin/sh -c "
-      ((sleep 15 && kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 3 --topic moisturemate)&) && /etc/confluent/docker/run;
-      ((sleep 15 && kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 3 --topic carbonsense)&) && /etc/confluent/docker/run;
-      ((sleep 15 && kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 3 --topic luxmeter)&) && /etc/confluent/docker/run;
-      "
     restart: always
