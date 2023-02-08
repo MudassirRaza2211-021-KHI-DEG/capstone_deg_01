@@ -33,6 +33,7 @@ services:
       - sensorsmock
     environment:
       - KAFKA_BOOTSTRAP_SERVER= broker:29092
+      - LUXMETER_URL=http://sensor:3000/api/luxmeter/
     ports:
       - "3003:3003"
 
