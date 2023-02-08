@@ -1,8 +1,11 @@
 from unittest import TestCase
+
 from fastapi.testclient import TestClient
+
 from capstone_deg_01.carbon_moist_api.carbon_moist_data_extract_app import app
 
 client = TestClient(app)
+
 
 class TestExample(TestCase):
     def test_collect_moisturemate_data_response_200_and_logs(self):
@@ -34,7 +37,7 @@ class TestExample(TestCase):
             captured.records[0].getMessage(),
             "Received CarbonSense data: {'test_key': 'test_value'}",
         )
-        
+
     def test_invalid_endpoint_response_404(self):
         response = client.post(
             "/invalid_endpoint",
