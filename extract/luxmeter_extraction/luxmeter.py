@@ -18,10 +18,13 @@ producer = KafkaProducer(
 rooms = ["kitchen", "bedroom", "bathroom", "living_room"]
 
 
-def luxmeter_data():
+def get_luxmeter_data_periodically():
     while (True):
         time.sleep(60)
-        for room_id in rooms:
+        get_luxmeter_data()
+
+def get_luxmeter_data():
+    for room_id in rooms:
             received_data = requests.get(f'{LUXMETER_URL}{room_id}')
             received_data = received_data.json()
             last_record = f"{received_data['room_id']}: {received_data['measurements'][-1]}"
@@ -30,7 +33,6 @@ def luxmeter_data():
             logger.info(f"Luxmeter data sent to kafka topic successfully: {record}")
            
 
-
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    luxmeter_data()
+    get_luxmeter_data_periodically()
