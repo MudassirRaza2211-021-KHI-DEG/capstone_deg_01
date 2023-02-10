@@ -43,8 +43,8 @@ def get_smart_thermo_data():
         content = obj.get()["Body"].read().decode("utf-8")
         logger.info(f"Read SmartThermo data from MinIO: {content}")
         record=producer.send('smartthermo', value=content)
-
+        logger.debug(f"Smart-Thermo data sent to Kafka topic successfully: {record}")
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     get_smartthermo_data_periodically()
