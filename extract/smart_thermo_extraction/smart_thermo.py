@@ -11,7 +11,7 @@ minio_access_key = os.environ.get("MINIO_ACCESS_KEY")
 minio_secret_key = os.environ.get("MINIO_SECRET_KEY")
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
 
-Producer = KafkaProducer(
+producer = KafkaProducer(
             bootstrap_servers=KAFKA_BROKER_URL,
             value_serializer=lambda x: json.dumps(x).encode('utf8'),
             api_version=(0, 10, 1)
