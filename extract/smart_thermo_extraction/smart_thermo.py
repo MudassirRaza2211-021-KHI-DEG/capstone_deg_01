@@ -36,7 +36,7 @@ def smartthermo_data():
         if obj.key.endswith(".csv"):
             obj = s3.Object("capstondeg01", obj.key)
             content = obj.get()["Body"].read().decode("utf-8")
-            logger.info(f"Smart_Thermo: {content}")
+            logger.info(f"Read SmartThermo data from MinIO: {content}")
             record=producer.send('smartthermo', value=content)
 
 
