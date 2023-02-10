@@ -24,7 +24,19 @@ services:
       - KAFKA_BOOTSTRAP_SERVER= broker:29092
     ports:
       - "3001:3001"
-  
+      
+  luxmeter-data:  
+    build: ./extract/luxmeter_extraction
+    container_name: luxmeter-data
+    depends_on:
+      - broker
+      - sensorsmock
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER= broker:29092
+      - LUXMETER_URL=http://sensor:3000/api/luxmeter/
+    ports:
+      - "3003:3003"
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper
