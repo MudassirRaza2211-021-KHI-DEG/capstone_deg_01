@@ -25,7 +25,7 @@ def luxmeter_data():
             received_data = requests.get(f'{LUXMETER_URL}{room_id}')
             received_data = received_data.json()
             last_record = f"{received_data['room_id']}: {received_data['measurements'][-1]}"
-            record = Producer.send('luxmeter', value=last_record)
+            record = producer.send('luxmeter', value=last_record)
             logger.info(f"Received Luxmeter Data: {last_record}")
 
 
