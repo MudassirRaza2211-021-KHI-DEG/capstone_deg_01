@@ -37,7 +37,7 @@ def smartthermo_data():
             obj = s3.Object("capstondeg01", obj.key)
             content = obj.get()["Body"].read().decode("utf-8")
             logger.info(f"Smart_Thermo: {content}")
-            record=Producer.send('smartthermo', value=content)
+            record=producer.send('smartthermo', value=content)
 
 
 if __name__ == "__main__":
