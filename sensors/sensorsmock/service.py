@@ -11,6 +11,9 @@ from typing import Dict
 import httpx
 import pandas as pd
 
+import io
+import minio
+
 logger = logging.getLogger()
 
 
@@ -27,7 +30,11 @@ class SensorService:
     def __init__(self):
         self._moisture_mate_url = os.environ.get("MOISTURE_MATE_URL")
         self._carbon_sense_url = os.environ.get("CARBON_SENSE_URL")
+
         self._smart_thermo_bucket = os.environ.get("SMART_THERMO_BUCKET")
+        self.minio_endpoint = os.environ.get("MINIO_ENDPOINT")
+        self.minio_access_key = os.environ.get("MINIO_ACCESS_KEY")
+        self.minio_secret_key = os.environ.get("MINIO_SECRET_KEY")
 
         if None in (
             self._moisture_mate_url,
@@ -60,8 +67,11 @@ class SensorService:
                 for room, measurement in sample.items()
             ]
         )
+        logger.info(f"Smart_Thermo: {df}")
 
-        df.to_csv(f"s3://{self._smart_thermo_bucket}/smart_thermo/{date}.csv")
+        minioClient = minio.Minio(self.minio_endpoint, access_key=self.minio_access_key, secret_key=self.minio_secret_key ,secure=False)
+        data = df.to_csv(index=False).encode()
+        minioClient.put_object(self._smart_thermo_bucket, f"{date}.csv", io.BytesIO(data), len(data))
 
     async def send_moisture_mate(self, date: str, sample: Dict[str, Measurement]):
         for room, measurement in sample.items():
@@ -74,8 +84,7 @@ class SensorService:
 
             await self._send_request(self._moisture_mate_url, data)
 
-            logger.info(
-                f"MoistureMate: {data} sent to {self._moisture_mate_url}")
+            logger.info(f"MoistureMate: {data} sent to {self._moisture_mate_url}")
 
     async def send_carbon_sense(self, date: str, sample: Dict[str, Measurement]):
         for room, measurement in sample.items():
@@ -83,8 +92,7 @@ class SensorService:
 
             await self._send_request(self._carbon_sense_url, data)
 
-            logger.info(
-                f"CarbonSense: {data} sent to {self._carbon_sense_url}")
+            logger.info(f"CarbonSense: {data} sent to {self._carbon_sense_url}")
 
     def is_allowed_room(self, room_id: str):
         return room_id in self.rooms
@@ -121,8 +129,7 @@ class SensorService:
 
             self.change_room_cooldown = random.randint(5, 30)
 
-        new_sample = {room: random.choice(
-            self.negative_samples) for room in self.rooms}
+        new_sample = {room: random.choice(self.negative_samples) for room in self.rooms}
         new_sample[self.occupied_room] = random.choice(self.positive_samples)
         self.data[date] = new_sample
         logger.info(

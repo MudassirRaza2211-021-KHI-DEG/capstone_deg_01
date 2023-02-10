@@ -5,10 +5,8 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-COPY positive.csv positive.csv
-COPY negative.csv negative.csv
-COPY sensorsmock sensorsmock
+COPY luxmeter.py luxmeter.py
 
 ENV PYTHONPATH /app
+CMD [ "python3","luxmeter.py"]
 
-CMD [ "python3", "sensorsmock/app.py"]

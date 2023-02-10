@@ -1,2 +1,5 @@
 fastapi==0.89.1
 uvicorn==0.20.0
+kafka-python==2.0.1
+requests
+

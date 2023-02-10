@@ -1,5 +1,36 @@
 version: "3.9"
 services:
+
+  minio:
+    image: quay.io/minio/minio
+    container_name: container_minio
+    ports:
+      - '9000:9000' # API
+      - '9090:9090' # console
+    command: minio server /data --console-address ":9090"
+    environment:
+
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+
+    volumes:
+      - minio-data:/data
+    profiles: ['main-app-service']
+
+  minio-client:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config;
+      /usr/bin/mc config host add myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/capstondeg01;
+      exit 0;
+
+      "
+    profiles: ['main-app-service']
+
   sensorsmock:
     build: ./sensors
     container_name: sensor
@@ -7,15 +38,100 @@ services:
       - "3000:3000"
     depends_on:
       - ca-postapi
+      - broker
     environment:
-      - SMART_THERMO_BUCKET=your-bucket-name
+      - SMART_THERMO_BUCKET=capstondeg01
       - CARBON_SENSE_URL=http://ca-postapi:3001/api/fetch/carbonsense_data
       - MOISTURE_MATE_URL=http://ca-postapi:3001/api/fetch/moisturemate_data
-      - AWS_ACCESS_KEY_ID=your-access-key
-      - AWS_SECRET_ACCESS_KEY=your-secret-access-key
-      - AWS_SESSION_TOKEN=your-access-token
-  ca-postapi:
-    build: ./carbon-moist-api
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_ENDPOINT=minio:9000
+    links:
+      - minio
+    profiles: ['main-app-service']
+  ca-postapi:  
+    build: ./extract/carbon_moist_extraction
     container_name: ca-postapi
+    depends_on:
+      - broker
+      # - sensorsmock
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER= broker:29092
     ports:
       - "3001:3001"
+    profiles: ['main-app-service']
+  smartthermo-data:  
+    build: ./extract/smart_thermo_extraction
+    container_name: smartthermo_container
+    depends_on:
+      - broker
+      - sensorsmock
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER= broker:29092
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    ports:
+      - "3006:3006"
+    profiles: ['main-app-service']
+  luxmeter-data:  
+    build: ./extract/luxmeter_extraction
+    container_name: luxmeter-data
+    depends_on:
+      - broker
+      - sensorsmock
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER= broker:29092
+    ports:
+      - "3003:3003"
+    profiles: ['main-app-service']
+  
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    profiles: ['kafka-server']
+  broker:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: broker
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    command: >
+      /bin/sh -c "
+      ((sleep 15 && kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 3 --topic moisturemate)&) && /etc/confluent/docker/run;
+      ((sleep 15 && kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 3 --topic carbonsense)&) && /etc/confluent/docker/run;
+      ((sleep 15 && kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 3 --topic luxmeter)&) && /etc/confluent/docker/run;
+      "
+    restart: always
+    profiles: ['kafka-server']
+  jupyter:
+    image: jupyter/pyspark-notebook:latest
+    container_name: container_jupyter
+    ports:
+      - "8888:8888"
+    network_mode:
+          host
+    user: root
+    environment:
+      CHOWN_HOME: 'yes'
+      CHOWN_HOME_OPTS: -R
+      KAFKA_HOST: broker
+      KAFKA_PORT: 9092
+    profiles: ['main-app-service']
+    volumes:
+      - ./:/home/jovyan/work:rw
+
+volumes:
+  minio-data: 
+    external: true
