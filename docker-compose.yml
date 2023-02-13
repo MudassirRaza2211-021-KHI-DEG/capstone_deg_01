@@ -8,13 +8,11 @@ services:
       - '9090:9090' # console
     command: minio server /data --console-address ":9090"
     environment:
-      - MINIO_ENDPOINT_URL =http://minio:9000
+      - MINIO_ENDPOINT_URL=http://minio:9000
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
-
     volumes:
       - minio-data:/data
-    profiles: ['main-app-service']
 
   minio-client:
     image: minio/mc
@@ -37,10 +35,10 @@ services:
     depends_on:
       - ca-postapi
     environment:
-      - SMART_THERMO_BUCKET=your-bucket-name
+      - SMART_THERMO_BUCKET=capstondeg01
       - CARBON_SENSE_URL=http://ca-postapi:3001/api/fetch/carbonsense_data
       - MOISTURE_MATE_URL=http://ca-postapi:3001/api/fetch/moisturemate_data
-      - MINIO_ENDPOINT_URL =http://minio:9000
+      - MINIO_ENDPOINT_URL=minio:9000
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
       
@@ -71,6 +69,7 @@ services:
       - KAFKA_BOOTSTRAP_SERVER= broker:29092
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
+      - MINIO_ENDPOINT_URL=http://minio:9000
     ports:
       - "3006:3006"
 
