@@ -46,7 +46,7 @@ services:
       
   
   ca-postapi:
-    build: ./carbon-moist-extraction
+    build: ./extract/carbon_moist_extraction
     container_name: ca-postapi
     ports:
       - "3001:3001"
