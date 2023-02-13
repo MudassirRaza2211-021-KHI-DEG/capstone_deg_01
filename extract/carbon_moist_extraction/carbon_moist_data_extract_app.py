@@ -22,17 +22,17 @@ async def collect_moisture_mate_data(request: Request):
     moisturemate_data = await request.json()
     logger.info(f"Received MoistureMate Data: {moisturemate_data}")
     record = producer.send('moisturemate', key=(moisturemate_data['room_id']).encode('utf-8'), value=moisturemate_data)
-
+    logger.debug(f"Moisturemate data sent to Kafka topic successfully: {record}")
 
 @app.post("/api/fetch/carbonsense_data")
 async def collect_carbonsense_data(request: Request):
     carbonsense_data = await request.json()
     logger.info(f"Received Carbonsense Data: {carbonsense_data}")
     record = producer.send('carbonsense', key=(carbonsense_data['room_id']).encode('utf-8'), value=carbonsense_data)
-
+    logger.debug(f"Carbonsense data sent to Kafka topic successfully: {record}")
 
 def run_app():
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     uvicorn.run(app, host="0.0.0.0", port=3001)
 
 
