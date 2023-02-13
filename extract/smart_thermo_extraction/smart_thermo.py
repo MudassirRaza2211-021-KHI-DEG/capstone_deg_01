@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger()
 
+MINIO_ENDPOINT_URL = os.environ.get("MINIO_ENDPOINT_URL")
 MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY")
 MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY")
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
@@ -27,7 +28,7 @@ def get_smartthermo_data_periodically():
 def get_smart_thermo_data():
     # Connect to Minio using the S3 protocol
     s3 = boto3.resource("s3",
-                        endpoint_url="http://minio:9000",
+                        endpoint_url=MINIO_ENDPOINT_URL,
                         aws_access_key_id=MINIO_ACCESS_KEY ,
                         aws_secret_access_key=MINIO_SECRET_KEY )
      
