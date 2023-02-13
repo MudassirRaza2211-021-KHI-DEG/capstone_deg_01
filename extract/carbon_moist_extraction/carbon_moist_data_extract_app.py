@@ -21,14 +21,14 @@ producer = KafkaProducer(
 async def collect_moisture_mate_data(request: Request):
     moisturemate_data = await request.json()
     logger.info(f"Received MoistureMate Data: {moisturemate_data}")
-    record = producer.send('moisturemate', value=moisturemate_data)
+    record = producer.send('moisturemate', key=(moisturemate_data['room_id']).encode('utf-8'), value=moisturemate_data)
 
 
 @app.post("/api/fetch/carbonsense_data")
 async def collect_carbonsense_data(request: Request):
     carbonsense_data = await request.json()
     logger.info(f"Received Carbonsense Data: {carbonsense_data}")
-    record = producer.send('carbonsense', value=carbonsense_data)
+    record = producer.send('carbonsense', key=(carbonsense_data['room_id']).encode('utf-8'), value=carbonsense_data)
 
 
 def run_app():
