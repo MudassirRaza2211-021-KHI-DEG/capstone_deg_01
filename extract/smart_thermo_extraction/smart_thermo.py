@@ -7,8 +7,8 @@ import logging
 
 logger = logging.getLogger()
 
-minio_access_key = os.environ.get("MINIO_ACCESS_KEY")
-minio_secret_key = os.environ.get("MINIO_SECRET_KEY")
+MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY")
+MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY")
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
 
 producer = KafkaProducer(
