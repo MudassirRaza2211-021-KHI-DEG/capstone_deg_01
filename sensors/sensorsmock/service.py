@@ -11,6 +11,10 @@ from typing import Dict
 import httpx
 import pandas as pd
 
+import minio
+import io
+
+
 logger = logging.getLogger()
 
 
@@ -28,6 +32,9 @@ class SensorService:
         self._moisture_mate_url = os.environ.get("MOISTURE_MATE_URL")
         self._carbon_sense_url = os.environ.get("CARBON_SENSE_URL")
         self._smart_thermo_bucket = os.environ.get("SMART_THERMO_BUCKET")
+        self._minio_endpoint = os.environ.get("MINIO_ENDPOINT_URL")
+        self._minio_access_key = os.environ.get("MINIO_ACCESS_KEY")
+        self._minio_secret_key = os.environ.get("MINIO_SECRET_KEY")    
 
         if None in (
             self._moisture_mate_url,
@@ -61,7 +68,7 @@ class SensorService:
             ]
         )
 
-        minioClient = minio.Minio(self.minio_endpoint, access_key=self.minio_access_key, secret_key=self.minio_secret_key ,secure=False)
+        minioClient = minio.Minio(self._minio_endpoint, access_key=self._minio_access_key, secret_key=self._minio_secret_key ,secure=False)
         data = df.to_csv(index=False).encode()
         minioClient.put_object(self._smart_thermo_bucket, f"{date}.csv", io.BytesIO(data), len(data))
         logger.info(f"SmartThermo: {df} was written to MinIO bucket {self._smart_thermo_bucket}")
