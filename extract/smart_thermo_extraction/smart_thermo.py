@@ -28,8 +28,8 @@ def get_smart_thermo_data():
     # Connect to Minio using the S3 protocol
     s3 = boto3.resource("s3",
                         endpoint_url="http://minio:9000",
-                        aws_access_key_id=minio_access_key,
-                        aws_secret_access_key=minio_secret_key)
+                        aws_access_key_id=MINIO_ACCESS_KEY ,
+                        aws_secret_access_key=MINIO_SECRET_KEY )
      
     # List all objects in the bucket
     bucket = s3.Bucket("capstondeg01")
