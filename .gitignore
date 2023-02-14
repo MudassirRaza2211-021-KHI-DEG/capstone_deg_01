@@ -4,6 +4,7 @@ env/
 build/
 *.egg-info/
 __pycache__/
+/model/trained_model/
 
 # File formats
 *.pyc
