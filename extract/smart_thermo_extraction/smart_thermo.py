@@ -34,8 +34,7 @@ def get_smart_thermo_data():
      
     # List all objects in the bucket
     bucket = s3.Bucket("capstondeg01")
-    # filter method will return a list of all those csv files in the folder.
-    objects = list(bucket.objects.filter())
+    objects = list(bucket.objects.all())
     # Get last object
     obj = objects[-1]
     # Read the contents of the object if it's a csv file
