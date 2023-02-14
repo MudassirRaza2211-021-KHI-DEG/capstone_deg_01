@@ -1,12 +1,12 @@
+import logging
 import os
 import pickle
-import logging
 
 import numpy as np
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
 
 
 def train_model(
