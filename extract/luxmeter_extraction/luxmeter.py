@@ -9,11 +9,7 @@ from kafka import KafkaProducer
 logger = logging.getLogger()
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
 LUXMETER_URL = os.environ.get("LUXMETER_URL")
-producer = KafkaProducer(
-    bootstrap_servers=KAFKA_BROKER_URL,
-    value_serializer=lambda x: json.dumps(x).encode('utf8'),
-    api_version=(0, 10, 1)
-)
+producer = None
 
 rooms = ["kitchen", "bedroom", "bathroom", "living_room"]
 
@@ -35,5 +31,10 @@ def get_luxmeter_data():
            
 
 if __name__ == "__main__":
+    producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER_URL,
+    value_serializer=lambda x: json.dumps(x).encode('utf8'),
+    api_version=(0, 10, 1)
+    )
     logging.basicConfig(level=logging.DEBUG)
     get_luxmeter_data_periodically()
