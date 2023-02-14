@@ -12,12 +12,7 @@ MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY")
 MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY")
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
 
-producer = KafkaProducer(
-            bootstrap_servers=KAFKA_BROKER_URL,
-            value_serializer=lambda x: json.dumps(x).encode('utf8'),
-            api_version=(0, 10, 1)
-        )
-
+producer = None
 
 def get_smartthermo_data_periodically():
     while(True):
@@ -46,5 +41,10 @@ def get_smart_thermo_data():
         logger.debug(f"Smart-Thermo data sent to Kafka topic successfully: {record}")
 
 if __name__ == "__main__":
+    producer = KafkaProducer(
+            bootstrap_servers=KAFKA_BROKER_URL,
+            value_serializer=lambda x: json.dumps(x).encode('utf8'),
+            api_version=(0, 10, 1)
+        )
     logging.basicConfig(level=logging.DEBUG)
     get_smartthermo_data_periodically()
