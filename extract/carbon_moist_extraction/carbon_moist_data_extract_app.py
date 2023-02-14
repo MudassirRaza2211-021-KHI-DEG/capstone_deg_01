@@ -10,12 +10,8 @@ logger = logging.getLogger()
 app = FastAPI()
 
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BOOTSTRAP_SERVER")
-producer = KafkaProducer(
-    bootstrap_servers=KAFKA_BROKER_URL,
-    value_serializer=lambda x: json.dumps(x).encode('utf8'),
-    api_version=(0, 10, 1)
-)
 
+producer = None
 
 @app.post("/api/fetch/moisturemate_data")
 async def collect_moisture_mate_data(request: Request):
@@ -32,6 +28,11 @@ async def collect_carbonsense_data(request: Request):
     logger.debug(f"Carbonsense data sent to Kafka topic successfully: {record}")
 
 def run_app():
+    producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER_URL,
+    value_serializer=lambda x: json.dumps(x).encode('utf8'),
+    api_version=(0, 10, 1)
+    )
     logging.basicConfig(level=logging.DEBUG)
     uvicorn.run(app, host="0.0.0.0", port=3001)
 
