@@ -5,7 +5,6 @@ import pandas as pd
 
 from model import train_model
 
-
 logging.basicConfig(level=logging.INFO)
 
 
@@ -15,7 +14,6 @@ def run_argparse() -> argparse.Namespace:
     parser.add_argument("--save_model", default=False)
     parser.add_argument("--model_dir", default=None)
     return parser.parse_args()
-
 
 
 def run_train(args: argparse.Namespace):
@@ -30,4 +28,3 @@ def run_train(args: argparse.Namespace):
 if __name__ == "__main__":
     args = run_argparse()
     run_train(args)
-
