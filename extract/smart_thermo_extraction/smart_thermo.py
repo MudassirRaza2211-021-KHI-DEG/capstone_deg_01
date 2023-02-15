@@ -35,15 +35,13 @@ def get_smart_thermo_data():
     # List all objects in the bucket
     bucket = s3.Bucket("capstondeg01")
     objects = list(bucket.objects.all())
-    # Get last object
-    obj = objects[-1]
-    # Read the contents of the object if it's a csv file
-    if obj.key.endswith(".csv"):
-        obj = s3.Object("capstondeg01", obj.key)
-        content = obj.get()["Body"].read().decode("utf-8")
-        logger.info(f"Read SmartThermo data from MinIO: {content}")
-        record=producer.send('smartthermo', value=content)
-        logger.debug(f"Smart-Thermo data sent to Kafka topic successfully: {record}")
+    # Read the contents of the last object if it's a csv file
+    obj = list(filter(lambda o: o.key.endswith(".csv"), objects))[-1]
+    obj = s3.Object("capstondeg01", obj.key)
+    content = obj.get()["Body"].read().decode("utf-8")
+    logger.info(f"Read SmartThermo data from MinIO: {content}")
+    record=producer.send('smartthermo', value=content)
+    logger.debug(f"Smart-Thermo data sent to Kafka topic successfully: {record}")
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
