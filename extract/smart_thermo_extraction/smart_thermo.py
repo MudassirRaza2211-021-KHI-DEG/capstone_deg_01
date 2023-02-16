@@ -42,6 +42,21 @@ def get_smart_thermo_data():
     record = producer.send("smartthermo", value=content)
     logger.debug(
         f"Smart-Thermo data sent to Kafka topic successfully: {record}")
+    
+    lines = content.strip().split("\n")
+    header = lines[0].strip().split(",")
+    room_index = header.index("room_id")
+
+    for line in lines[1:]:
+        values = line.strip().split(",")
+        room_id = values[room_index]
+
+        data = dict(zip(header, values))
+        json_data = json.dumps(data)
+        json_data = json.loads(json_data)
+        json_data['temperature'] = float(json_data['temperature'])
+
+        record = producer.send('smartthermo', key=(room_id).encode('utf-8'), value=json_data)
 
 
 if __name__ == "__main__":
