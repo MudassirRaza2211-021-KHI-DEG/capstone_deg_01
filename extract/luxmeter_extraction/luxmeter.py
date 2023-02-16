@@ -28,11 +28,14 @@ def get_luxmeter_data():
         received_data_json_copy = copy(received_data)
         last_measurement = received_data_json_copy["measurements"][-1]
         received_data_json_copy["measurements"] = last_measurement
-        
-        received_data_json_copy.update(received_data_json_copy.pop('measurements'))
 
-        record = producer.send('luxmeter', key=room_id.encode('utf-8'), value=received_data_json_copy)
-        logger.info(f"Luxmeter data sent to Kafka topic successfully: {received_data_json_copy}")
+        received_data_json_copy.update(
+            received_data_json_copy.pop('measurements'))
+
+        record = producer.send('luxmeter', key=room_id.encode(
+            'utf-8'), value=received_data_json_copy)
+        logger.info(
+            f"Luxmeter data sent to Kafka topic successfully: {received_data_json_copy}")
 
 
 if __name__ == "__main__":
