@@ -35,14 +35,14 @@ async def collect_carbonsense_data(request: Request):
 
 
 def run_app():
-    producer = KafkaProducer(
-        bootstrap_servers=KAFKA_BROKER_URL,
-        value_serializer=lambda x: json.dumps(x).encode('utf8'),
-        api_version=(0, 10, 1)
-    )
     logging.basicConfig(level=logging.DEBUG)
     uvicorn.run(app, host="0.0.0.0", port=3001)
 
 
 if __name__ == "__main__":
+    producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER_URL,
+    value_serializer=lambda x: json.dumps(x).encode('utf8'),
+    api_version=(0, 10, 1)
+)
     run_app()
