@@ -1,5 +1,31 @@
 version: "3.9"
 services:
+  minio:
+    image: quay.io/minio/minio
+    container_name: container_minio
+    ports:
+      - '9000:9000' # API
+      - '9090:9090' # console
+    command: minio server /data --console-address ":9090"
+    environment:
+      - MINIO_ENDPOINT_URL=http://minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    volumes:
+      - minio-data:/data
+
+  minio-client:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config;
+      /usr/bin/mc config host add myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/capstondeg01;
+      exit 0;
+      "
+  
   sensorsmock:
     build: ./sensors
     container_name: sensor
@@ -8,14 +34,14 @@ services:
     depends_on:
       - ca-postapi
     environment:
-      - SMART_THERMO_BUCKET=your-bucket-name
+      - SMART_THERMO_BUCKET=capstondeg01
       - CARBON_SENSE_URL=http://ca-postapi:3001/api/fetch/carbonsense_data
       - MOISTURE_MATE_URL=http://ca-postapi:3001/api/fetch/moisturemate_data
-      - AWS_ACCESS_KEY_ID=your-access-key
-      - AWS_SECRET_ACCESS_KEY=your-secret-access-key
-      - AWS_SESSION_TOKEN=your-access-token
-  
-  ca-postapi:  
+      - MINIO_ENDPOINT_URL=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      
+  ca-postapi:
     build: ./extract/carbon_moist_extraction
     container_name: ca-postapi
     depends_on:
@@ -36,6 +62,20 @@ services:
       - LUXMETER_URL=http://sensor:3000/api/luxmeter/
     ports:
       - "3003:3003"
+  
+  smartthermo-data:  
+    build: ./extract/smart_thermo_extraction
+    container_name: smartthermo_container
+    depends_on:
+      - broker
+      - sensorsmock
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER= broker:29092
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_ENDPOINT_URL=http://minio:9000
+    ports:
+      - "3006:3006"
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
@@ -60,3 +100,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     restart: always
+
+volumes:
+  minio-data: 
+    external: true
