@@ -27,3 +27,6 @@ About requirements.txt and setup.py:
 1) Create `requirements.txt` , create venv, activate it and install requirement.txt in it.
 2) Create `setup.py` file , and run pip install . (pip will use setup.py to install your module) , this will 'create Capstone_project_deg_01.egg-info' and 'build' folders.
 
+## How to Run:
+1) Create a volume for MinIO: `docker volume create minio-data`
+2) Execute the start_app.sh to run our whole app using `./start_app.sh`
