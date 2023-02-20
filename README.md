@@ -20,6 +20,12 @@ A high level diagram from end-user perspective can be seen here.
 
 ![Business-component-diagram](team-non-technical-files/business-objective.jpg)
 
+## High-level architecture diagram
+
+It is the actual architecture diagram which we have followed throughout our pipeline.
+
+![Architecture-Diagram](team-non-technical-files/architecture-diagram.jpg)
+
 ## Contributions Conventions:
 Here we will write conventions for our future use...
 
