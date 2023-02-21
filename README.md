@@ -28,5 +28,9 @@ About requirements.txt and setup.py:
 2) Create `setup.py` file , and run pip install . (pip will use setup.py to install your module) , this will 'create Capstone_project_deg_01.egg-info' and 'build' folders.
 
 ## How to Run:
-1) Create a volume for MinIO: `docker volume create minio-data`
-2) Execute the start_app.sh to run our whole app using `./start_app.sh`
+1) Create a volume for MinIO by entering the command `docker volume create minio-data` in the terminal.
+2) Execute the `start_app.sh` script to launch the entire application by running the command `./start_app.sh`.
+3) Retrieve the IP address of the Postgres container by entering the command `docker inspect postgres_container | grep IPAddress` in the terminal.
+4) Edit the `docker-compose.yml` file to update the IP address for the `transformation` and `ml_model_deploy` services.
+5) Verify that the `transformation` service is sending and receiving data in the Postgres database by entering the command `docker exec -it postgres_container psql -U myuser mydb` in the terminal.
+6) Check that the data has been received in the database table by visiting the frontend at `http://localhost:8000/data/api/endpoint`.
