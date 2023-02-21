@@ -86,6 +86,41 @@ services:
       - "3006:3006"
     profiles: ['main-app-service']
 
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    volumes:
+      # copy the sql script to create tables
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  
+    ports:
+      - "5432:5432"
+    profiles: ['main-app-service']
+
+  transformation:
+    build: ./transform
+    container_name: transformation_container
+    restart: always
+    depends_on:
+      - postgres
+    network_mode:
+      host
+    ports:
+        - "5000:5000"  
+    environment:
+      POSTGRES_URL: jdbc:postgresql://172.26.0.6:5432/mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_HOST: postgres_container
+      POSTGRES_TABLE: mytable
+
+    profiles: ['main-app-service']
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper
