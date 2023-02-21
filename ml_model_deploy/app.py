@@ -11,7 +11,7 @@ import os
 
 app = Flask(__name__)
 
-with open('model.pkl', 'rb') as file:
+with open('capstone_deg_01/model/trained_model/model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 postgres_user = os.environ.get("POSTGRES_USER")
