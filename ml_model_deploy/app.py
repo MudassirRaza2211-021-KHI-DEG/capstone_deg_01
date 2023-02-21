@@ -1,13 +1,12 @@
-from flask import Flask, request, jsonify, json, render_template, url_for
-import requests
-import pickle
-import pandas as pd
-from time import sleep
-import psycopg2
-import logging
 import json
-import pandas as pd
+import logging
 import os
+import pickle
+
+import pandas as pd
+import psycopg2
+import requests
+from flask import Flask, json, jsonify, render_template, request
 
 app = Flask(__name__)
 
@@ -19,13 +18,17 @@ postgres_password = os.environ.get("POSTGRES_PASSWORD")
 postgres_db = os.environ.get("POSTGRES_DB")
 postgres_ip = os.environ.get("POSTGRES_IP")
 
+
 def connect():
-    conn = psycopg2.connect(database=postgres_db, user=postgres_user, password=postgres_password, host=postgres_ip, port="5432")
+    conn = psycopg2.connect(database=postgres_db, user=postgres_user,
+                            password=postgres_password, host=postgres_ip, port="5432")
 
     cur = conn.cursor()
-    cur.execute("SELECT DISTINCT ON (room_id) * FROM mytable ORDER BY room_id, timestamp DESC")
+    cur.execute(
+        "SELECT DISTINCT ON (room_id) * FROM mytable ORDER BY room_id, timestamp DESC")
     results = cur.fetchall()
-    df = pd.DataFrame(results, columns=['timestamp', 'room_id', 'humidity', 'humidity_ratio', 'co2', 'light_level', 'temperature'])
+    df = pd.DataFrame(results, columns=[
+                      'timestamp', 'room_id', 'humidity', 'humidity_ratio', 'co2', 'light_level', 'temperature'])
 
     df['temperature'] = (df['temperature'] - 32) * 5/9
     d = df[["temperature", "humidity", "light_level", "co2", "humidity_ratio"]]
@@ -33,14 +36,17 @@ def connect():
     predictions = model.predict(d)
     df_predic = pd.DataFrame(predictions, columns=['predictions'])
     result = pd.merge(df_predic, df, left_index=True, right_index=True)
-    result['room_id'] = result['room_id'].replace({'living_room': 'Cardiology', 'kitchen': 'Pediatrics', 'bathroom': 'Private Ward', 'bedroom': 'CCU'})
-    result['predictions'] = result['predictions'].replace({0: 'Not Occupied', 1: 'Occupied'})
+    result['room_id'] = result['room_id'].replace(
+        {'living_room': 'Cardiology', 'kitchen': 'Pediatrics', 'bathroom': 'Private Ward', 'bedroom': 'CCU'})
+    result['predictions'] = result['predictions'].replace(
+        {0: 'Not Occupied', 1: 'Occupied'})
 
     json_data = result.to_json(date_format='iso', orient='records')
     logger.info(f"json_data {json_data}")
     return json_data
 
-@app.route('/data/api/endpoint', methods=['GET','POST'])
+
+@app.route('/data/api/endpoint', methods=['GET', 'POST'])
 def send_data():
     data = json.loads(connect())
     room_ids = list(set([item['room_id'] for item in data]))
@@ -49,11 +55,13 @@ def send_data():
 
     return render_template('index.html', room_data=room_data, room_ids=room_ids, selected_room=selected_room)
 
+
 @app.route('/lottie-animation-1')
 def lottie_animation_1():
     url = 'https://assets9.lottiefiles.com/packages/lf20_olluraqu.json'
     animation_data = requests.get(url).json()
     return jsonify(animation_data)
+
 
 @app.route('/lottie-animation-2')
 def lottie_animation_2():
@@ -61,11 +69,13 @@ def lottie_animation_2():
     animation_data = requests.get(url).json()
     return jsonify(animation_data)
 
+
 @app.route('/lottie-animation-3')
 def lottie_animation_3():
     url = 'https://assets3.lottiefiles.com/packages/lf20_9Rpr7C.json'
     animation_data = requests.get(url).json()
     return jsonify(animation_data)
+
 
 @app.route('/lottie-animation-4')
 def lottie_animation_4():
@@ -73,11 +83,13 @@ def lottie_animation_4():
     animation_data = requests.get(url).json()
     return jsonify(animation_data)
 
+
 @app.route('/lottie-animation-5')
 def lottie_animation_5():
     url = 'https://assets10.lottiefiles.com/packages/lf20_nfxa6agk.json'
     animation_data = requests.get(url).json()
     return jsonify(animation_data)
+
 
 if __name__ == '__main__':
     logger = logging.getLogger()
