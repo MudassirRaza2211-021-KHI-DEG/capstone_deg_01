@@ -32,7 +32,7 @@ def connect():
     return results
 
 
-def predictions():
+def get_predictions():
 
     df = connect()
     df = pd.DataFrame(df, columns=[
