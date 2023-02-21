@@ -106,6 +106,6 @@ def lottie_animation_5():
 
 
 if __name__ == '__main__':
-    prediction_name_and_temperature_conversion()
-    logging.basicConfig(level=logging.INFO)
     app.run(debug=True, port=8000, host="0.0.0.0")
+    logging.basicConfig(level=logging.INFO)
+    prediction_name_and_temperature_conversion()
