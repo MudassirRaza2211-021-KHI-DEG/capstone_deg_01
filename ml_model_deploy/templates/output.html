@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <title>Hospital Room Optimization Using IoT</title>
+     <style>
+       .container {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-wrap: wrap;
+       }
+       
+       .box {
+        margin: 10px;
+        padding: 20px;
+        border: 1px solid black;
+        width: 250px;
+        height: 250px;
+        text-align: center;
+        font-size: 18px;
+      }
+
+      /* Styles for the modal */
+      .modal {
+        display: none; /* Hide the modal by default */
+        position: fixed; /* Position the modal to cover the entire screen */
+        z-index: 1; /* Make sure the modal is above everything else */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Enable scrolling if the content is too long */
+        background-color: rgba(0,0,0,0.4); /* Add a black background with opacity */
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+      /* Styles for the button */
+      .enter-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s; /* Add a transition effect to the button */
+      }
+      .enter-button:hover {
+        background-color: #3e8e41;
+      }
+      /* Styles for the blurred content */
+      .blurred {
+        filter: blur(5px); /* Add a blur effect */
+      }
+      
+      h1 {
+    text-align: center;
+  }
+
+  select {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .box {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <!-- Modal -->
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <h1>Welcome to the App</h1>
+      <button id="enterButton" class="enter-button">Enter</button>
+    </div>
+  </div>
+  <h1>Hospital Room Occupancy App v1.0</h1>
+  <form method="post" action="{{ url_for('send_data') }}">
+    <select name="room_id" onchange="this.form.submit()">
+      {% for room_id in room_ids %}
+      <option value="{{ room_id }}" {% if room_id == selected_room %}selected{% endif %}>{{ room_id }}</option>
+      {% endfor %}
+    </select>
+  </form>
+  <div class="container">
+    {% for item in room_data %}
+    <div class="box">
+      <p><strong>Prediction:</strong> Room {{ item['predictions'] }}</p>
+      <p><strong>Timestamp:</strong> {{ item['timestamp'] }}</p>
+      <p><strong>Room ID:</strong> {{ item['room_id'] }}</p>
+    </div>
+    <div class="box">
+      <video width="64" height="64" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/9284/9284648.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="" __idm_id__="1769473">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/9284/9284648.mp4" type="video/mp4">
+    </video>
+      <h4>MoistureMate</h4>
+      <p><strong>Humidity:</strong> {{ item['humidity'] }}</p>
+      <p><strong>Humidity Ratio:</strong> {{ item['humidity_ratio'] }}</p>
+    </div>
+    <div class="box">
+      <video width="64" height="64" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/9306/9306849.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="" __idm_id__="2080769">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/9306/9306849.mp4" type="video/mp4">
+    </video>
+      <h4>CarbonSense</h4>
+      <p><strong>CO2:</strong> {{ item['co2'] }}</p>
+    </div>
+    <div class="box">
+      <video width="64" height="64" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/8716/8716391.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="" __idm_id__="2285569">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/8716/8716391.mp4" type="video/mp4">
+    </video>
+      <h4>LuxMeter</h4>
+      <p><strong>Light Level:</strong> {{ item['light_level'] }}</p>
+    </div>
+    <div class="box">
+      <video width="64" height="64" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/6455/6455015.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="" __idm_id__="2342913">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/6455/6455015.mp4" type="video/mp4">
+    </video>
+      <h4>SmartThermo</h4>
+      <p><strong>Temperature:</strong> {{ item['temperature'] }} °C</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <script>
+setInterval(function() {
+  location.reload();
+}, 60000);
+</script>
+
+<script>
+  // Check if the modal has been shown before
+  if (!localStorage.getItem('modalShown')) {
+    // Display the modal
+    document.getElementById('welcomeModal').style.display = 'block';
+    // Blur the background content
+    document.querySelector('.container').classList.add('blurred');
+    
+    // Add a click event listener to the enter button
+    document.getElementById('enterButton').addEventListener('click', function() {
+      // Set a flag to indicate that the modal has been shown
+      localStorage.setItem('modalShown', 'true');
+      // Hide the modal
+      document.getElementById('welcomeModal').style.display = 'none';
+      // Remove the blur effect from the background content
+      document.querySelector('.container').classList.remove('blurred');
+    });
+  }
+</script>
+
+
+
+  </body>
+</html>
+
