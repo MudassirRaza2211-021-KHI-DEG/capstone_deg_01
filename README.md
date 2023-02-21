@@ -18,7 +18,7 @@ To automate the hospital rooms by getting predicting the data of occupation by I
 
 A high level diagram from end-user perspective can be seen here.
 
-![Business-component-diagram](team-non-technical-files/business-objective.jpg)
+![Business-component-diagram](team-non-technical-files/Flowchart.jpg)
 
 ## Contributions Conventions:
 Here we will write conventions for our future use...
