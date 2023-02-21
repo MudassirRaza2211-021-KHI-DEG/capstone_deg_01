@@ -115,6 +115,7 @@ body {
 .section-title {
   padding: 10px 10px 10px 10px;
   margin: 0 auto;
+  margin-bottom: 100px;
 }
 @media screen and (max-width: 767px) {
   .section-title {
@@ -486,6 +487,7 @@ footer .tags ul li {
   padding: 20px;
   background-color: #3c92d1;
   color: #fff;
+  margin-top: 100px;
 }
 
 .copy a {
