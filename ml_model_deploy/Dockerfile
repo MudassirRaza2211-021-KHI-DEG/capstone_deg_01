@@ -13,11 +13,6 @@ RUN apt-get update && \
     pip3 install psycopg2-binary
     
 COPY . /ml_model_deploy
-# COPY app.py app.py
-# COPY eco.gif eco.gif
-# COPY model.pkl model.pkl
-# COPY test_data.csv test_data.csv
-# COPY templates templates
 
 ENV PYTHONPATH /ml_model_deploy
 CMD [ "python3", "app.py"]
