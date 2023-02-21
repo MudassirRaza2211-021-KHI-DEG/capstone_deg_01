@@ -31,6 +31,7 @@ def connect():
     results = cur.fetchall()
     return results
 
+
 def predictions():
 
     df = connect()
@@ -41,8 +42,9 @@ def predictions():
     predictions = model.predict(d)
     df_predic = pd.DataFrame(predictions, columns=['predictions'])
     result = pd.merge(df_predic, df, left_index=True, right_index=True)
-    
+
     return result
+
 
 def prediction_name_and_temperature_conversion():
 
@@ -56,6 +58,7 @@ def prediction_name_and_temperature_conversion():
     json_data = result_df.to_json(date_format='iso', orient='records')
     logger.info(f"json_data {json_data}")
     return json_data
+
 
 @app.route('/data/api/endpoint', methods=['GET', 'POST'])
 def send_data():
