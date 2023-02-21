@@ -100,7 +100,7 @@ services:
   
     ports:
       - "5432:5432"
-    profiles: ['main-app-service']
+    profiles: ['kafka-server']
 
   transformation:
     build: ./transform
