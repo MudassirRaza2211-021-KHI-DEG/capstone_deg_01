@@ -115,7 +115,6 @@ body {
 .section-title {
   padding: 10px 10px 10px 10px;
   margin: 0 auto;
-  margin-bottom: 100px;
 }
 @media screen and (max-width: 767px) {
   .section-title {
@@ -368,7 +367,7 @@ header .nav-row .navbar .navbar-nav .nav-item .active {
 }
 .services .servic-row .servcover {
   background-color: #fff;
-  padding: 30px;
+  padding: 70px;
   text-align: center;
 }
 .services .servic-row .servcover img {
@@ -377,10 +376,11 @@ header .nav-row .navbar .navbar-nav .nav-item .active {
 }
 .services .servic-row .servcover h4 {
   margin-bottom: 15px;
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 .services .servic-row .servcover p {
   margin-bottom: 10px;
+  font-size: 18px;
 }
 .services .servic-row .span {
   background-color: #17adb6;

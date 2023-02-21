@@ -10,6 +10,8 @@ from flask import Flask, json, jsonify, render_template, request
 
 app = Flask(__name__)
 
+logger = logging.getLogger()
+
 with open('capstone_deg_01/model/trained_model/model.pkl', 'rb') as file:
     model = pickle.load(file)
 
@@ -27,28 +29,37 @@ def connect():
     cur.execute(
         "SELECT DISTINCT ON (room_id) * FROM mytable ORDER BY room_id, timestamp DESC")
     results = cur.fetchall()
-    df = pd.DataFrame(results, columns=[
+    return results
+
+def predictions():
+
+    df = connect()
+    df = pd.DataFrame(df, columns=[
                       'timestamp', 'room_id', 'humidity', 'humidity_ratio', 'co2', 'light_level', 'temperature'])
 
-    df['temperature'] = (df['temperature'] - 32) * 5/9
     d = df[["temperature", "humidity", "light_level", "co2", "humidity_ratio"]]
-
     predictions = model.predict(d)
     df_predic = pd.DataFrame(predictions, columns=['predictions'])
     result = pd.merge(df_predic, df, left_index=True, right_index=True)
-    result['room_id'] = result['room_id'].replace(
-        {'living_room': 'Cardiology', 'kitchen': 'Pediatrics', 'bathroom': 'Private Ward', 'bedroom': 'CCU'})
-    result['predictions'] = result['predictions'].replace(
-        {0: 'Not Occupied', 1: 'Occupied'})
+    
+    return result
 
-    json_data = result.to_json(date_format='iso', orient='records')
+def prediction_name_and_temperature_conversion():
+
+    result_df = predictions()
+    result_df['room_id'] = result_df['room_id'].replace(
+        {'living_room': 'Cardiology', 'kitchen': 'Pediatrics', 'bathroom': 'Private Ward', 'bedroom': 'CCU'})
+    result_df['predictions'] = result_df['predictions'].replace(
+        {0: 'Not Occupied', 1: 'Occupied'})
+    result_df['temperature'] = (result_df['temperature'] - 32) * 5/9
+
+    json_data = result_df.to_json(date_format='iso', orient='records')
     logger.info(f"json_data {json_data}")
     return json_data
 
-
 @app.route('/data/api/endpoint', methods=['GET', 'POST'])
 def send_data():
-    data = json.loads(connect())
+    data = json.loads(prediction_name_and_temperature_conversion())
     room_ids = list(set([item['room_id'] for item in data]))
     selected_room = request.form.get('room_id') or room_ids[0]
     room_data = [item for item in data if item['room_id'] == selected_room]
@@ -92,6 +103,6 @@ def lottie_animation_5():
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger()
+    prediction_name_and_temperature_conversion()
     logging.basicConfig(level=logging.INFO)
     app.run(debug=True, port=8000, host="0.0.0.0")
