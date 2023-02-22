@@ -1,0 +1,720 @@
+@charset "UTF-8";
+/* =======================================================================
+Template Name: Youtubers
+Author:  SmartEye Technologies
+Author URI: www.smarteyeapps.com
+Version: 1.0
+coder name:Prabin Raja
+Description: This Template is created for Youtubers
+======================================================================= */
+/* ===================================== Import Variables ================================== */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Arimo:300,400,400italic,700,700italic);
+/* ===================================== Basic CSS ==================================== */
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+  color: #444;
+}
+
+a:hover {
+  color: #444;
+}
+
+ul {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+a:hover,
+a:focus,
+input,
+textarea {
+  text-decoration: none;
+  outline: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.cp {
+  cursor: pointer;
+}
+
+html, body {
+  height: 100%;
+}
+
+p {
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.hid {
+  display: none;
+}
+
+.top-mar {
+  margin-top: 15px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+::placeholder {
+  color: #747f8a !important;
+  font-size: 13px;
+  opacity: 0.5 !important;
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #545454;
+}
+
+body {
+  background-color: #f1f1f145 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: #6A6A6A;
+  overflow-x: hidden;
+}
+
+.section-title {
+  padding: 10px 10px 10px 10px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  .section-title {
+    padding: 5px;
+  }
+}
+.section-title h2 {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.section-title p {
+  max-width: 850px;
+  text-align: center;
+  float: none;
+  margin: auto;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+.section-title span {
+  float: right;
+  font-style: italic;
+}
+
+.inner-title {
+  padding: 20px;
+  padding-left: 0px;
+  margin: 0px;
+  margin-bottom: 10px;
+  padding-bottom: 0px;
+  border-bottom: 1px solid #ccccccc4;
+  display: block;
+  padding-right: 0px;
+}
+.inner-title h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #863dd9;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  width: 300px;
+}
+.inner-title p {
+  width: 100%;
+  text-align: center;
+}
+.inner-title .btn {
+  float: right;
+  margin-top: -38px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.page-nav {
+  background-size: 100%;
+  padding: 68px;
+  text-align: center;
+  background-color: #eaeaea;
+}
+.page-nav ul {
+  float: none;
+  margin: auto;
+}
+@media screen and (max-width: 992px) {
+  .page-nav {
+    background-size: auto;
+  }
+}
+@media screen and (max-width: 767px) {
+  .page-nav {
+    padding-top: 200px;
+    padding-bottom: 40px;
+  }
+}
+@media screen and (max-width: 356px) {
+  .page-nav {
+    padding-top: 200px;
+    padding-bottom: 40px;
+  }
+}
+.page-nav h2 {
+  font-size: 28px;
+  width: 100%;
+  font-weight: 700;
+  color: #444;
+  text-align: left;
+}
+@media screen and (max-width: 600px) {
+  .page-nav h2 {
+    font-size: 26px;
+  }
+}
+.page-nav ul li {
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: #444;
+}
+.page-nav ul li i {
+  width: 30px;
+  text-align: center;
+  color: #444;
+}
+.page-nav ul li a {
+  color: #444;
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
+.btn-success {
+  background-color: #51be78;
+  border-color: #51be78;
+}
+.btn-success:hover {
+  background-color: #51be78 !important;
+  border-color: #51be78 !important;
+}
+.btn-success:active {
+  background-color: #51be78 !important;
+  border-color: #51be78 !important;
+}
+.btn-success:focus {
+  background-color: #51be78 !important;
+  border-color: #51be78 !important;
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  background-color: #3cc88f;
+  border-color: #3cc88f;
+}
+.btn-primary:hover {
+  background-color: #3cc88f !important;
+  border-color: #3cc88f !important;
+}
+.btn-primary:active {
+  background-color: #3cc88f !important;
+  border-color: #3cc88f !important;
+}
+.btn-primary:focus {
+  background-color: #3cc88f !important;
+  border-color: #3cc88f !important;
+  box-shadow: none !important;
+}
+
+.btn {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  border: 1px solid #CCC;
+}
+
+.btn-light {
+  background-color: #FFF;
+  color: #3F3F3F;
+}
+
+.collapse.show {
+  display: block !important;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border: 1px solid #CCC;
+}
+
+.form-control {
+  background-color: #F8F8F8;
+  margin-bottom: 20px;
+}
+.form-control:focus {
+  background-color: #FFF;
+  border-color: #CCC;
+}
+
+.container {
+  max-width: 1170px;
+}
+header {
+  background-color: #fff;
+}
+header .header-top .left-info li {
+  float: left;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+header .rit-info {
+  float: right;
+}
+header .rit-info li {
+  padding: 10px;
+}
+header .logo-row {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+header .logo-row img {
+  max-width: 290px;
+}
+@media screen and (max-width: 767px) {
+  header .logo-row {
+    padding: 10px;
+  }
+}
+header .nav-row .navbar {
+  background-color: #fff !important;
+}
+@media screen and (max-width: 767px) {
+  header .nav-row .navbar {
+    padding: 0px;
+  }
+}
+header .nav-row .navbar .navbar-nav {
+  float: none;
+  margin: auto;
+}
+header .nav-row .navbar .navbar-nav .nav-item {
+  padding: 5px 20px;
+  font-weight: 700;
+  color: #444;
+  font-size: 0.9rem;
+}
+header .nav-row .navbar .navbar-nav .nav-item .active {
+  background-color: #17adb6;
+  padding: 5px 15px;
+  border-radius: 50px;
+  color: #fff;
+}
+
+
+
+.services {
+  padding: 10px 10px 10px 10px;
+}
+@media screen and (max-width: 940px) {
+  .services {
+    padding: 30px 10px;
+  }
+}
+.services .servic-row .servcover {
+  background-color: #fff;
+  padding: 70px;
+  text-align: center;
+}
+.services .servic-row .servcover img {
+  margin-bottom: 20px;
+  max-width: 60px;
+}
+.services .servic-row .servcover h4 {
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+.services .servic-row .servcover p {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.services .servic-row .span {
+  background-color: #17adb6;
+  color: #fff;
+  padding: 5px 25px;
+  font-weight: 600;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin: auto;
+  margin-top: -17px;
+  margin-left: -20px;
+  width: 120px;
+}
+.services .servic-row .servic-col {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.services .servic-row .mor-cover {
+  position: absolute;
+  margin-top: -15px;
+}
+
+
+
+
+
+/* ===================================== Footer Cover Style  ================================== */
+.footer-ablove {
+ 
+  background-color: #05939c;
+  color: #fff;
+}
+
+
+
+footer {
+  
+  background-color: #05939c;
+  color: #fff;
+}
+
+@media screen and (max-width: 940px) {
+  footer {
+    padding: 50px 10px;
+  }
+}
+footer h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+footer .about p {
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+footer .about .foot-address {
+  display: flex;
+}
+
+footer .about .foot-address .icon {
+  padding: 20px 10px;
+}
+
+footer .about .foot-address .addet {
+  font-size: 0.9rem;
+  margin: auto 0px;
+}
+
+footer .fotblog .blohjb {
+  margin-bottom: 10px;
+}
+
+footer .fotblog .blohjb p {
+  font-size: 0.9rem;
+}
+
+footer .fotblog .blohjb span {
+  font-size: 0.9rem;
+}
+
+footer .glink ul li {
+  padding: 10px;
+}
+
+footer .glink ul li i {
+  margin-right: 10px;
+}
+
+footer .glink ul li a {
+  color: #fff;
+}
+
+footer .tags ul li {
+  float: left;
+  padding: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+}
+
+.copy {
+  padding: 20px;
+  background-color: #3c92d1;
+  color: #fff;
+  margin-top: 100px;
+}
+
+.copy a {
+  color: #fff;
+}
+
+.copy span {
+  float: right;
+}
+
+.copy span i {
+  margin-right: 20px;
+}
+
+.cop-ck {
+  padding: 20px;
+  background-color: #ffffffbd;
+}
+.cop-ck h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.about-coo {
+  background-color: #FFF;
+  padding: 50px;
+}
+@media screen and (max-width: 940px) {
+  .about-coo {
+    padding: 30px 10px;
+  }
+}
+.about-coo .about-row .about-img {
+  text-align: center;
+  margin: auto;
+}
+@media only screen and (max-width: 767px) {
+  .about-coo .about-row .about-img img {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 476px) {
+  .about-coo .about-row .about-img img {
+    margin-bottom: 30px;
+  }
+}
+.about-coo .about-row .about-text h1 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  line-height: 40px;
+}
+.about-coo .about-row .about-text p {
+  margin-bottom: 30px;
+}
+.about-coo .about-row .about-text .about-featur ul {
+  width: 100%;
+  margin-left: -10px;
+}
+.about-coo .about-row .about-text .about-featur ul li {
+  padding: 10px;
+  width: 50%;
+  float: left;
+  font-weight: 400;
+}
+.about-coo .about-row .about-text .about-featur ul li i {
+  margin-right: 5px;
+}
+
+/* ===================================== Our Team Style  ================================== */
+.our-team {
+  padding: 50px;
+}
+
+@media screen and (max-width: 940px) {
+  .our-team {
+    padding: 50px 10px;
+  }
+}
+.our-team .team-row {
+  margin-top: 20px;
+}
+
+.our-team .team-row .single-usr {
+  box-shadow: 0 2px 6px 0 rgba(218, 218, 253, 0.65), 0 2px 6px 0 rgba(206, 206, 238, 0.54);
+  margin-bottom: 20px;
+}
+
+.our-team .team-row .single-usr img {
+  width: 100%;
+}
+
+.our-team .team-row .single-usr .det-o {
+  padding: 20px;
+  background-color: #17adb6;
+}
+
+.our-team .team-row .single-usr .det-o h4 {
+  color: #FFF;
+  margin-bottom: 0px;
+}
+
+.our-team .team-row .single-usr .det-o i {
+  color: #FFF;
+}
+
+.cont-row {
+  margin-bottom: 20px;
+}
+
+#animation-container-2 svg, #animation-container-3 svg, #animation-container-4 svg, #animation-container-5 svg {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+#animation-container-1 svg {
+  width: 200px !important;
+  height: 200px !important;
+  margin: 0px 0px 20px 0px;
+  display: inline-block;
+  margin: 0 auto 20px;
+}
+
+.animation-element {
+  text-align: center;
+}
+
+.servcover {
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  margin: 0 auto;
+}
+
+
+form {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.cool-select {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.cool-select:focus {
+  outline: none;
+}
+
+.cool-select:active {
+  background-color: #eee;
+}
+
+.cool-select::-ms-expand {
+  display: none;
+}
+
+.cool-select option {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  background-color: #fff;
+}
+
+.cool-select::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 8px 8px;
+  border-color: transparent transparent #333 transparent;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+/* Styles for the modal */
+.modal {
+  display: none; /* Hide the modal by default */
+  position: fixed; /* Position the modal to cover the entire screen */
+  z-index: 1; /* Make sure the modal is above everything else */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scrolling if the content is too long */
+  background-color: rgba(0,0,0,0.9); /* Add a black background with opacity */
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  text-align: center;
+}
+/* Styles for the button */
+.enter-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #17adb6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s; /* Add a transition effect to the button */
+}
+.enter-button:hover {
+  background-color: #1e757a;
+}
+/* Styles for the blurred content */
+.blurred {
+  filter: blur(5px); /* Add a blur effect */
+}
+
+
+/*# sourceMappingURL=style.css.map */
