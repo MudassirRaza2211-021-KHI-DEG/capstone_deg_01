@@ -147,6 +147,23 @@ services:
     restart: always
     profiles: ['kafka-server']
 
+  ml_model_deploy:
+      build: ./ml_model_deploy
+      container_name: ml_model_deploy
+      ports:
+        - "8000:8000"
+      depends_on:
+        - transformation
+        - postgres
+      environment:
+        POSTGRES_IP: add-your-ip
+        POSTGRES_USER: myuser
+        POSTGRES_PASSWORD: mypassword
+        POSTGRES_DB: mydb
+      restart: always
+        
+      profiles: ['main-app-service']
+
 volumes:
   minio-data: 
     external: true
